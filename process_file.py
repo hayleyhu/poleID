@@ -13,15 +13,18 @@ def LLHtoECEF(lat, lon, alt):
 	C      = 1/np.sqrt(cosLat**2 + FF * sinLat**2)
 	S      = C * FF
 
-	x = (rad * C + alt)*cosLat * np.cos(lon)
-	y = (rad * C + alt)*cosLat * np.sin(lon)
-	z = (rad * S + alt)*sinLat
+	x = (rad * C + alt)*cosLat * np.cos(lon) // 0.1 
+	y = (rad * C + alt)*cosLat * np.sin(lon) // 0.1
+	z = (rad * S + alt)*sinLat // 0.1
 
 	return (x, y, z)
 
 if __name__=="__main__":
 	fuse_file = open('final_project_data/final_project_point_cloud.fuse', 'rb')
 	point_info = list()
+	lat_set = set()
+	long_set = set()
+	
 	for line in fuse_file:
 		r = line.strip().split(' ')
 		point = []
@@ -29,13 +32,22 @@ if __name__=="__main__":
 		point.append(x)
 		point.append(y)
 		point.append(z)
+		lat_set.add(x)
+		long_set.add(y)
 		point_info.append(point)
 
 	obj_file = open('point_cloud.obj', 'w')
-
+	
 	for point in point_info:
 		line = "v " + str(point[0]) + " " + str(point[1]) + " "+ str(point[2])
 		obj_file.write(line)
 		obj_file.write("\n")
 
 	obj_file.close()
+	
+	print "Lat length: " + len(lat_set)
+	print "Long length: " + len(long_set)
+	print "Lat min: " + min(lat_set)
+	print "Long min: " + min(long_set)
+	print "Lat max: " + max(lat_set)
+	print "Long max: " + max(long_set)
