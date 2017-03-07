@@ -236,7 +236,7 @@ def filterZ():
 
 def rangeHistogram():
 	
-	obj_file = open('filtered_intensity&distance_point_cloud.obj', 'rb')
+	obj_file = open('noplane.obj', 'rb')
 	coords_dict = dict()
 	freqd = dict()
 	for line in obj_file:
@@ -273,7 +273,7 @@ def rangeHistogram():
 	# plt.show()
 
 def filterRange():
-	obj_file = open('filtered_intensity&distance_point_cloud.obj', 'rb')
+	obj_file = open('noplane.obj', 'rb')
 	coords_dict = dict()
 	freqd = dict()
 	point_info = list()
